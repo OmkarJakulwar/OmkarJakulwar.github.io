@@ -1,0 +1,357 @@
+<title>Omkar Jakulwar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single-column page that reads like a passing test report — hero + live "run" panel, then suites (sections) */
+:root{
+  --bg:#F2F4F7; --surface:#FFFFFF; --ink:#131C26; --muted:#5A6676; --line:#DCE1E8;
+  --accent:#2747C9; --accent-soft:#E6EBFB; --pass:#1B7F4E; --pass-soft:#E3F3EA;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0D131A; --surface:#151D27; --ink:#E4E9EF; --muted:#94A1B2; --line:#26313F;
+  --accent:#8EA6FF; --accent-soft:#1C2647; --pass:#5ACB8E; --pass-soft:#14301F; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0D131A; --surface:#151D27; --ink:#E4E9EF; --muted:#94A1B2; --line:#26313F;
+  --accent:#8EA6FF; --accent-soft:#1C2647; --pass:#5ACB8E; --pass-soft:#14301F; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding-inline:20px}
+.wrap{max-width:1040px;margin:0 auto;padding-block:28px 64px;display:flex;flex-direction:column;gap:88px}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.08}
+p{margin:0}
+.mono{font-family:var(--mono)}
+.label{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* nav */
+nav{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+nav .brand{font-family:var(--mono);font-size:14px;font-weight:500}
+nav ul{list-style:none;display:flex;gap:20px;margin:0;padding:0;flex-wrap:wrap}
+nav ul a{color:var(--muted);text-decoration:none;font-size:14px}
+nav ul a:hover{color:var(--ink)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.25fr 1fr;gap:48px;align-items:start;margin-top:-40px}
+.hero > *{min-width:0}
+.hero h1{font-size:clamp(44px,7vw,84px);font-weight:800;letter-spacing:-.025em}
+.hero .role{font-family:var(--display);font-weight:500;font-size:clamp(20px,2.4vw,26px);color:var(--muted);margin-top:14px}
+.hero .pitch{margin-top:22px;max-width:56ch;font-size:17px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chip{font-family:var(--mono);font-size:12.5px;padding:5px 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.chip.ok{background:var(--pass-soft);border-color:transparent;color:var(--pass)}
+.ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:500 15px var(--body);padding:11px 18px;border-radius:8px;text-decoration:none;border:1px solid var(--accent);cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--bg)}
+.btn.ghost{background:transparent;color:var(--accent)}
+
+/* run panel */
+.run{background:var(--surface);border:1px solid var(--line);border-radius:12px;font-family:var(--mono);font-size:13px;overflow:hidden;margin-top:12px}
+.run header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);gap:12px;flex-wrap:wrap}
+.run header .file{color:var(--muted)}
+.badge{background:var(--pass);color:var(--surface);font-weight:500;padding:2px 9px;border-radius:4px;font-size:12px;letter-spacing:.05em}
+.run ol{list-style:none;margin:0;padding:10px 0}
+.run li{display:grid;grid-template-columns:18px 1fr auto;gap:10px;padding:7px 16px;align-items:baseline}
+.run li .tick{color:var(--pass)}
+.run li .val{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums;white-space:nowrap}
+.run li .name{color:var(--muted);min-width:0}
+.run footer{border-top:1px solid var(--line);padding:11px 16px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.run footer b{color:var(--pass);font-weight:500}
+@media (prefers-reduced-motion:no-preference){
+  .run li{animation:row .45s ease both}
+  .run li:nth-child(2){animation-delay:.08s}.run li:nth-child(3){animation-delay:.16s}
+  .run li:nth-child(4){animation-delay:.24s}.run li:nth-child(5){animation-delay:.32s}.run li:nth-child(6){animation-delay:.4s}
+  @keyframes row{from{transform:translateX(-6px);opacity:.35}to{transform:none;opacity:1}}
+}
+
+/* sections */
+section{display:flex;flex-direction:column;gap:28px;scroll-margin-top:24px}
+.sec-head{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:18px}
+.sec-head h2{font-size:clamp(28px,3.6vw,40px);font-weight:700;letter-spacing:-.015em}
+
+/* about */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.about > *{min-width:0}
+.about p+p{margin-top:14px}
+.strengths{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.strengths li{padding:12px 0;border-bottom:1px solid var(--line);display:flex;gap:12px}
+.strengths li:first-child{padding-top:0}
+.strengths li span{color:var(--pass);font-family:var(--mono)}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.skill{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.skill h3{font-size:18px;font-weight:700}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--mono);font-size:12.5px;padding:3px 8px;border-radius:5px;background:var(--accent-soft);color:var(--ink)}
+
+/* experience */
+.timeline{display:flex;flex-direction:column;gap:40px}
+.job{display:grid;grid-template-columns:210px 1fr;gap:32px}
+.job > *{min-width:0}
+.job .when{font-family:var(--mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.job .where{font-size:14px;color:var(--muted);margin-top:4px}
+.job h3{font-size:24px;font-weight:700}
+.job .co{color:var(--muted);margin-top:4px}
+.asserts{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.asserts li{display:grid;grid-template-columns:20px 1fr;gap:8px}
+.asserts li::before{content:"✓";color:var(--pass);font-family:var(--mono);font-weight:500}
+.asserts b{font-weight:600}
+.award{margin-top:18px;display:inline-flex;gap:10px;align-items:center;background:var(--pass-soft);color:var(--pass);font-family:var(--mono);font-size:13px;padding:8px 12px;border-radius:8px}
+
+/* projects */
+.projects{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.proj.wide{grid-column:1 / -1}
+.proj .kind{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+.proj h3{font-size:24px;font-weight:700}
+.proj p{color:var(--ink)}
+.proj ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:15px}
+.proj .links{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--mono);font-size:13px;margin-top:auto;padding-top:6px}
+.pipe{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-family:var(--mono);font-size:12.5px}
+.pipe span{padding:5px 9px;border:1px solid var(--line);border-radius:6px;background:var(--bg)}
+.pipe i{font-style:normal;color:var(--muted)}
+
+/* education */
+.edu{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.edu > div{min-width:0;display:flex;flex-direction:column;gap:6px;padding-top:4px}
+.edu h3{font-size:21px;font-weight:700}
+.edu .meta{color:var(--muted);font-size:15px}
+.edu .grade{font-family:var(--mono);font-size:13px;color:var(--pass)}
+.modules{margin-top:8px}
+
+/* contact */
+.contact{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:36px;display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:center}
+.contact > *{min-width:0}
+.contact h2{font-size:clamp(28px,3.6vw,40px);font-weight:700}
+.contact p{margin-top:12px;color:var(--muted);max-width:46ch}
+.clist{display:flex;flex-direction:column;gap:12px;font-family:var(--mono);font-size:14px}
+.crow{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--bg);flex-wrap:wrap}
+.crow .k{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.crow .v{overflow-wrap:anywhere;user-select:all}
+.copy{font:500 12px var(--mono);background:var(--accent-soft);color:var(--accent);border:0;padding:5px 10px;border-radius:5px;cursor:pointer}
+footer.site{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted);font-family:var(--mono);font-size:12.5px;border-top:1px solid var(--line);padding-top:18px}
+
+@media (max-width:860px){
+  .hero,.about,.job,.projects,.edu,.contact{grid-template-columns:1fr}
+  .hero{margin-top:0;gap:32px}
+  .skills{grid-template-columns:1fr 1fr}
+  .job{gap:10px}
+  .contact{padding:24px}
+  .wrap{gap:68px}
+}
+@media (max-width:560px){.skills{grid-template-columns:1fr} nav ul{gap:14px}}
+</style>
+
+<div class="wrap">
+  <nav aria-label="Main">
+    <span class="brand">omkar.jakulwar</span>
+    <ul>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero">
+    <div>
+      <p class="label">QA Engineer · Dublin</p>
+      <h1>Omkar Jakulwar</h1>
+      <p class="role">Automation testing, now with a cloud engineer's toolkit.</p>
+      <p class="pitch">I spent nearly three years testing healthcare web applications at Infosys, by hand and through Selenium/Java automation. Now I'm finishing an MSc in Cloud Computing, where I wire test suites into CI/CD pipelines, containerise them with Docker and run them on AWS. I'm looking for Cloud QA, QA Engineer and Automation Test Engineer roles.</p>
+      <div class="chips">
+        <span class="chip ok">● Open to work</span>
+        <span class="chip">Stamp 1G</span>
+        <span class="chip">MSc Cloud Computing, NCI</span>
+      </div>
+      <div class="ctas">
+        <a class="btn primary" href="#contact">Get in touch</a>
+        <a class="btn ghost" href="https://github.com/OmkarJakulwar">GitHub ↗</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/omkar-jakulwar-539905312">LinkedIn ↗</a>
+      </div>
+    </div>
+
+    <aside class="run" aria-label="Career highlights, written as a test run">
+      <header><span class="file">career.spec · Infosys 2022–2025</span><span class="badge">PASS</span></header>
+      <ol>
+        <li><span class="tick">✓</span><span class="name">daily automation suite size</span><span class="val">2,000+ tests</span></li>
+        <li><span class="tick">✓</span><span class="name">regression run time reduced</span><span class="val">−80%</span></li>
+        <li><span class="tick">✓</span><span class="name">defects logged in JIRA</span><span class="val">400+</span></li>
+        <li><span class="tick">✓</span><span class="name">caught before production</span><span class="val">90%+</span></li>
+        <li><span class="tick">✓</span><span class="name">API endpoints tested</span><span class="val">30+</span></li>
+        <li><span class="tick">✓</span><span class="name">peak JMeter load per API</span><span class="val">100k users</span></li>
+      </ol>
+      <footer><span><b>6 passed</b>, 0 failed</span><span>Top performer 2025</span></footer>
+    </aside>
+  </header>
+
+  <section id="about">
+    <div class="sec-head"><span class="label">About</span><h2>From test cases to test pipelines</h2></div>
+    <div class="about">
+      <div>
+        <p>At Infosys I built and maintained a Selenium/Java framework across four healthcare modules: credentialing, onboarding, roster and contracting. I ran functional, regression, integration and UAT testing across dev, QA, staging and UAT environments, and checked backend data with SQL.</p>
+        <p>That work made me care about where tests run, not just what they check. My MSc projects put that into practice: quality gates in GitHub Actions, Docker images pushed to ECR, serverless APIs with their own Pytest suites, and AWS infrastructure provisioned as code.</p>
+      </div>
+      <ul class="strengths" aria-label="Core strengths">
+        <li><span>✓</span>Clear technical communication with developers and product owners</li>
+        <li><span>✓</span>Root-cause analysis under sprint deadlines</li>
+        <li><span>✓</span>Cross-functional teamwork in Agile/Scrum</li>
+        <li><span>✓</span>Attention to detail in defect analysis</li>
+        <li><span>✓</span>Quick to adapt across healthcare domains and toolchains</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="sec-head"><span class="label">Experience</span><h2>Where I've shipped quality</h2></div>
+    <div class="timeline">
+      <article class="job">
+        <div><div class="when">Nov 2023 – Aug 2025</div><div class="where">Pune, India</div></div>
+        <div>
+          <h3>Automation Test Engineer</h3>
+          <div class="co">Infosys Limited</div>
+          <ul class="asserts">
+            <li><span>Designed and maintained a Selenium/Java framework (TestNG, Page Object Model) across 4 healthcare modules, automating <b>300+ regression cases</b> and cutting regression time by <b>80%</b>.</span></li>
+            <li><span>Ran a daily suite of <b>2,000+ test cases</b>, analysed TestNG reports and led root-cause failure analysis with developers.</span></li>
+            <li><span>Found and tracked <b>400+ defects</b> in JIRA, with over 90% caught before production release.</span></li>
+            <li><span>Tested <b>30+ API endpoints</b> with Postman and REST Assured, reducing reliance on UI-level testing.</span></li>
+            <li><span>Ran JMeter load tests at 1,000, 10,000 and 100,000 concurrent users per API.</span></li>
+            <li><span>Built a Python synthetic test-data generator that cut manual data setup and freed time for exploratory testing.</span></li>
+            <li><span>Took part in sprint planning, story grooming and defect triage with developers and product owners.</span></li>
+          </ul>
+          <div class="award">★ Named top performer of 2025 among 5+ automation testers</div>
+        </div>
+      </article>
+      <article class="job">
+        <div><div class="when">Nov 2022 – Nov 2023</div><div class="where">Pune, India</div></div>
+        <div>
+          <h3>System Engineer Trainee</h3>
+          <div class="co">Infosys Limited</div>
+          <ul class="asserts">
+            <li><span>Built RESTful APIs and microservices with Spring Boot and modular Angular components on MySQL.</span></li>
+            <li><span>Completed certification training in Selenium (Java) and BDD Cucumber, then moved from development into automation testing.</span></li>
+            <li><span>Contributed to sprints and code reviews in an Agile team.</span></li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="sec-head"><span class="label">Projects</span><h2>Cloud work from my MSc</h2></div>
+    <div class="projects">
+      <article class="proj wide">
+        <span class="kind">DevSecOps pipeline</span>
+        <h3>FitBoostTracker</h3>
+        <p>A Django fitness tracker for logging workouts and viewing weekly stats, deployed to AWS Elastic Beanstalk through a three-stage GitHub Actions pipeline that tests, scans and verifies every release.</p>
+        <div class="pipe" aria-label="Pipeline stages">
+          <span>Django unit tests + coverage</span><i>→</i><span>SonarCloud SAST</span><i>→</i><span>ZIP to S3</span><i>→</i><span>Elastic Beanstalk deploy</span><i>→</i><span>OWASP ZAP DAST on live URL</span>
+        </div>
+        <ul>
+          <li>Secrets kept in GitHub Secrets; third-party actions pinned to commit SHAs to reduce supply-chain risk.</li>
+          <li>Tests cover views, forms, auth redirects and per-user data isolation across three apps.</li>
+        </ul>
+        <div class="links"><a href="https://github.com/OmkarJakulwar/FitBoostTracker_Cloud_Devopsec">FitBoostTracker_Cloud_Devopsec ↗</a></div>
+      </article>
+
+      <article class="proj">
+        <span class="kind">Microservices · Serverless</span>
+        <h3>Campus Portal</h3>
+        <p>A student onboarding portal in Django REST Framework that brings three independent microservices behind one dashboard.</p>
+        <ul>
+          <li>Serverless ID Card Generator API (FastAPI, Mangum, Lambda, API Gateway) with a Pytest suite.</li>
+          <li>Welcome packs queued through SQS and processed by Lambda in the background.</li>
+          <li>CI/CD: SonarQube Cloud gate → Docker build → ECR → Elastic Beanstalk.</li>
+        </ul>
+        <div class="links"><a href="https://github.com/OmkarJakulwar/contact_id_card_generator_api">contact_id_card_generator_api ↗</a></div>
+      </article>
+
+      <article class="proj">
+        <span class="kind">Infrastructure as code</span>
+        <h3>IntelLodge</h3>
+        <p>A hotel management platform on Elastic Beanstalk with Cognito login, admin and staff roles, bookings and a revenue dashboard.</p>
+        <ul>
+          <li>All AWS resources provisioned with boto3: Cognito, 3 DynamoDB tables, S3, SNS, 2 Lambdas, EventBridge.</li>
+          <li>Login tokens verified against Cognito's public keys; room images served by one-hour expiring links.</li>
+          <li>Daily jobs send low-occupancy alerts and close past-checkout bookings.</li>
+        </ul>
+        <div class="links">
+          <a href="https://github.com/OmkarJakulwar/Intellodge_Cloud_Platform_Programming">Platform repo ↗</a>
+          <a href="https://github.com/OmkarJakulwar/Intellodge_Python_Library">boto3 library ↗</a>
+        </div>
+      </article>
+
+      <article class="proj wide">
+        <span class="kind">Full stack · AR</span>
+        <h3>AgroFarm</h3>
+        <p>An agricultural management platform with an Augmented Reality Farm Card that lets farmers explore crop and farm data. Angular front end, Spring Boot REST APIs and an optimised MySQL database.</p>
+        <div class="links">
+          <a href="https://github.com/OmkarJakulwar/AgroFarm_Client">AgroFarm_Client ↗</a>
+          <a href="https://github.com/OmkarJakulwar/AgroFarm_Server">AgroFarm_Server ↗</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head"><span class="label">Skills</span><h2>Toolchain</h2></div>
+    <div class="skills">
+      <div class="skill"><h3>Testing</h3><div class="tags"><span class="tag">Selenium WebDriver</span><span class="tag">TestNG</span><span class="tag">Cucumber (BDD)</span><span class="tag">Page Object Model</span><span class="tag">REST Assured</span><span class="tag">Postman</span><span class="tag">Apache JMeter</span><span class="tag">Pytest</span><span class="tag">JIRA</span></div></div>
+      <div class="skill"><h3>Cloud &amp; AWS</h3><div class="tags"><span class="tag">Elastic Beanstalk</span><span class="tag">Lambda</span><span class="tag">API Gateway</span><span class="tag">DynamoDB</span><span class="tag">S3</span><span class="tag">Cognito</span><span class="tag">SQS</span><span class="tag">SNS</span><span class="tag">EventBridge</span><span class="tag">ECR</span><span class="tag">boto3</span></div></div>
+      <div class="skill"><h3>DevOps &amp; security</h3><div class="tags"><span class="tag">GitHub Actions</span><span class="tag">Docker</span><span class="tag">SonarCloud</span><span class="tag">OWASP ZAP</span><span class="tag">CI/CD</span><span class="tag">Nginx</span><span class="tag">Gunicorn</span></div></div>
+      <div class="skill"><h3>Languages</h3><div class="tags"><span class="tag">Java</span><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">TypeScript</span><span class="tag">SQL</span></div></div>
+      <div class="skill"><h3>Frameworks</h3><div class="tags"><span class="tag">Spring Boot</span><span class="tag">Angular</span><span class="tag">Django</span><span class="tag">FastAPI</span></div></div>
+      <div class="skill"><h3>Data &amp; tools</h3><div class="tags"><span class="tag">MySQL</span><span class="tag">Oracle</span><span class="tag">Git / GitHub</span><span class="tag">IntelliJ IDEA</span><span class="tag">Eclipse</span><span class="tag">VS Code</span></div></div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="sec-head"><span class="label">Education</span><h2>Study</h2></div>
+    <div class="edu">
+      <div>
+        <h3>MSc in Cloud Computing</h3>
+        <div class="meta">National College of Ireland, Dublin · Sept 2025 – Sept 2026</div>
+        <div class="grade">Expected result: 2:1</div>
+        <div class="tags modules"><span class="tag">Cloud Architecture</span><span class="tag">Cloud DevOpsSec</span><span class="tag">Cloud Platform Programming</span><span class="tag">Scalable Cloud Programming</span><span class="tag">Fog &amp; Edge Computing</span><span class="tag">Cloud Machine Learning</span><span class="tag">Data Governance &amp; Ethics</span></div>
+      </div>
+      <div>
+        <h3>BEng in Electrical Engineering</h3>
+        <div class="meta">G.H. Raisoni Institute of Engineering &amp; Technology, Pune · 2019 – 2022</div>
+        <div class="grade">Result: 1:1</div>
+        <h3 style="font-size:17px;margin-top:18px">Certification</h3>
+        <div class="meta">Data Science and Machine Learning Internship Program, Edureka · June 2025</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact">
+      <div>
+        <span class="label">Contact</span>
+        <h2>Hiring for QA in Ireland?</h2>
+        <p>I'm based in Dublin on Stamp 1G and available for Cloud QA, QA Engineer and Automation Test Engineer roles. Email is the quickest way to reach me.</p>
+      </div>
+      <div class="clist">
+        <div class="crow"><div><div class="k">Email</div><div class="v" id="email">omkarjakkulwar78@gmail.com</div></div><button class="copy" id="copyEmail" type="button">Copy</button></div>
+        <div class="crow"><div><div class="k">LinkedIn</div><a class="v" href="https://www.linkedin.com/in/omkar-jakulwar-539905312">omkar-jakulwar-539905312 ↗</a></div></div>
+        <div class="crow"><div><div class="k">GitHub</div><a class="v" href="https://github.com/OmkarJakulwar">OmkarJakulwar ↗</a></div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site"><span>Omkar Jakulwar · Dublin, Ireland</span><span>All checks passing</span></footer>
+</div>
+
+<script>
+document.getElementById('copyEmail').addEventListener('click', function(){
+  var btn=this, txt=document.getElementById('email').textContent;
+  function done(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},1600)}
+  function fallback(){var r=document.createRange();r.selectNodeContents(document.getElementById('email'));var s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='Selected'}
+  try{navigator.clipboard.writeText(txt).then(done,fallback)}catch(e){fallback()}
+});
+</script>
